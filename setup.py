@@ -6,11 +6,22 @@ except ImportError:
     from distutils.core import setup
 
 __author__ = 'Max Arnold <arnold.maxim@gmail.com>'
-__version__ = '0.1.0'
+
+
+def get_version(path):
+    fn = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        path, "__init__.py")
+    with open(fn) as f:
+        for line in f:
+            if '__version__' in line:
+                parts = line.split("=")
+                return parts[1].split("'")[1]
+
 
 setup(
     name='devpi-slack',
-    version=__version__,
+    version=get_version('devpi_slack'),
 
     # Package dependencies.
 
