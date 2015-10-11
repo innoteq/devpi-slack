@@ -24,12 +24,15 @@ setup(
     long_description=open(os.path.abspath(os.path.join(os.path.dirname(__file__), 'README.md')), 'r').read(),
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
+        "Intended Audience :: System Administrators",
         'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Internet'
     ],
     packages=['devpi_slack'],
+    entry_points={
+        'devpi_server': [
+            "devpi-slack = devpi_slack.main"]},
+    install_requires=['devpi-server>=2.3.0'],
     platforms='any',
 )
