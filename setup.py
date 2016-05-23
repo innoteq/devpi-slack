@@ -44,6 +44,6 @@ setup(
     entry_points={
         'devpi_server': [
             "devpi-slack = devpi_slack.main"]},
-    install_requires=['devpi-server>=2.3.0'],
+    install_requires=['devpi-server>=4.0.0'],
     platforms='any',
 )

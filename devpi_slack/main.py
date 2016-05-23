@@ -11,7 +11,7 @@ def devpiserver_indexconfig_defaults():
     return {"slack_hook": None}
 
 
-def devpiserver_on_upload_sync(log, application_url, stage, projectname, version):
+def devpiserver_on_upload_sync(log, application_url, stage, project, version):
     slack_hook = stage.ixconfig.get("slack_hook")
     if not slack_hook:
         return
@@ -23,7 +23,7 @@ def devpiserver_on_upload_sync(log, application_url, stage, projectname, version
             data={
                 'payload': json.dumps({
                     "text": "Uploaded {}=={} to {}".format(
-                        projectname,
+                        project,
                         version,
                         application_url
                     ),
@@ -33,7 +33,7 @@ def devpiserver_on_upload_sync(log, application_url, stage, projectname, version
             })
     except session.Errors:
         raise RuntimeError("%s: failed to send Slack notification %s",
-                           projectname, slack_hook)
+                           project, slack_hook)
 
     if 200 <= r.status_code < 300:
         log.info("successfully sent Slack notification: %s", slack_hook)
@@ -42,4 +42,4 @@ def devpiserver_on_upload_sync(log, application_url, stage, projectname, version
                   slack_hook)
         log.debug(r.content)
         raise RuntimeError("%s: failed to send Slack notification: %s",
-                           projectname, slack_hook)
+                           project, slack_hook)
