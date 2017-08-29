@@ -1,18 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from devpi_common.request import new_requests_session
-from devpi_slack import __version__
-
 import json
+import os
+
+from devpi_common.request import new_requests_session
+
+from devpi_slack import __version__
 
 
 def devpiserver_indexconfig_defaults():
-    return {"slack_hook": None}
+    return {"slack_icon": None, "slack_hook": None, "slack_user": None}
 
 
 def devpiserver_on_upload_sync(log, application_url, stage, project, version):
-    slack_hook = stage.ixconfig.get("slack_hook")
+    slack_hook = stage.ixconfig.get("slack_hook") or os.getenv("SLACK_HOOK")
+    slack_icon = stage.ixconfig.get("slack_icon") or os.getenv(
+        "SLACK_ICON", "http://doc.devpi.net/latest/_static/devpicat.jpg")
+    slack_user = stage.ixconfig.get(
+        "slack_user") or os.getenv("SLACK_USER", "devpi")
     if not slack_hook:
         return
 
@@ -27,8 +33,8 @@ def devpiserver_on_upload_sync(log, application_url, stage, project, version):
                         version,
                         application_url
                     ),
-                    "icon_url": "http://doc.devpi.net/latest/_static/devpicat.jpg",
-                    "username": "devpi",
+                    "icon_url": slack_icon,
+                    "username": slack_user,
                 })
             })
     except session.Errors:
