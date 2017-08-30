@@ -19,4 +19,12 @@ Configuration
 
 devpi-slack can trigger Slack notifications upon package upload.
 
-    devpi index /testuser/dev slack_hook=https://hooks.slack.com/services/XXX/YYY/ZZZ
+    devpi index /testuser/dev slack_icon=http://doc.devpi.net/latest/_static/devpicat.jpg slack_hook=https://hooks.slack.com/services/XXX/YYY/ZZZ slack_user=devpi
+
+Environment Variables:
+
+Optionally, you can pass environment variables to configure the plugin.
+
+- ``SLACK_HOOK`` to adjust the Slack hook URL used. Defaults to the devpi slack_hook value above. (Note: slack_hook provided by devpi takes precedence. Setting both will default to the value specified in devpi)
+- ``SLACK_ICON`` to adjust the Slack icon used. Defaults to: <http://doc.devpi.net/latest/_static/devpicat.jpg>
+- ``SLACK_USER`` to adjust the Slack username used. Defaults to: devpi
