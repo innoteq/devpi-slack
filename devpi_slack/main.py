@@ -46,6 +46,6 @@ def devpiserver_on_upload_sync(log, application_url, stage, project, version):
     else:
         log.error("%s: failed to send Slack notification: %s", r.status_code,
                   slack_hook)
-        log.debug(r.content)
+        log.debug(r.content.decode('utf-8'))
         raise RuntimeError("%s: failed to send Slack notification: %s",
                            project, slack_hook)
