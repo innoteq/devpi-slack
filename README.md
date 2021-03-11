@@ -28,3 +28,10 @@ Optionally, you can pass environment variables to configure the plugin.
 - ``SLACK_HOOK`` to adjust the Slack hook URL used. Defaults to the devpi slack_hook value above. (Note: slack_hook provided by devpi takes precedence. Setting both will default to the value specified in devpi)
 - ``SLACK_ICON`` to adjust the Slack icon used. Defaults to: <http://doc.devpi.net/latest/_static/devpicat.jpg>
 - ``SLACK_USER`` to adjust the Slack username used. Defaults to: devpi
+
+Uninstall
+---------
+
+Remove the index configuration:
+
+    devpi index /testuser/dev slack_icon-= slack_hook-= slack_user=-devpi
